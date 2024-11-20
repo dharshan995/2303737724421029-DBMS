@@ -1,0 +1,40 @@
+<h1 class="text-center">Courses Offered</h1>
+<form method="POST" action="{{ url_for('search') }}" class="form-inline mb-4">
+    <input type="text" name="search_term" class="form-control mr-2" placeholder="Search by ID, Title, or Instructor" required>
+    <button type="submit" class="btn btn-info">Search</button>
+</form>
+
+<div class="mb-3">
+    <a href="{{ url_for('insert') }}" class="btn btn-success">Add New Course</a>
+</div>
+
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>Course ID</th>
+            <th>Title</th>
+            <th>Instructor</th>
+            <th>Duration</th>
+            <th>Price</th>
+            <th>Seats Available</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for course in courses %}
+        <tr>
+            <td>{{ course[0] }}</td>
+            <td>{{ course[1] }}</td>
+            <td>{{ course[2] }}</td>
+            <td>{{ course[3] }}</td>
+            <td>{{ course[4] }}</td>
+            <td>{{ course[5] }}</td>
+            <td>
+                <a href="{{ url_for('edit', course_id=course[0]) }}" class="btn btn-warning btn-sm">Edit</a>
+                <a href="{{ url_for('delete', course_id=course[0]) }}" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure you want to delete this course?');">Delete</a>
+                <a href="{{ url_for('enroll') }}" class="btn btn-success btn-sm">Enroll</a>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
